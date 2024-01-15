@@ -1,4 +1,5 @@
 import Layout from '../Layout';
+import PropTypes from 'prop-types';
 import Heading from './Heading';
 import Logo from './Logo';
 import Search from './Search';
@@ -17,3 +18,7 @@ export const Header = () => (
     </Layout>
   </header>
 );
+
+Header.propTypes = {
+  auth: PropTypes.boolean,
+};
