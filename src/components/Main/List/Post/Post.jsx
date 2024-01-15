@@ -1,16 +1,20 @@
 import style from './Post.module.css';
-import notphoto from './img/notphoto.jpg';
+// import notphoto from './img/notphoto.jpg';
 import PropTypes from 'prop-types';
-import formatDate from '../../../../utils/formatDate';
+// import formatDate from '../../../../utils/formatDate';
 import {PostRating} from './PostRating/PostRating';
 import {PostContent} from './PostContent/PostContent';
+import {PostImage} from './PostImage/PostImage';
+import {Button} from './Button/Button';
+import {PostTime} from './PostTime/PostTime';
 
 export const Post = ({postData}) => {
   const {title, author, ups, date} = postData;
   console.log('title, author, ups, date: ', title, author, ups, date);
   return (
     <li className={style.post}>
-      <img className={style.img} src={notphoto} alt={title} />
+      {/* <img className={style.img} src={notphoto} alt={title} /> */}
+      <PostImage title={title} />
       <PostContent title={title} author={author}/>
       {/* <div className={style.content}>
         <h2 className={style.title}>
@@ -20,7 +24,7 @@ export const Post = ({postData}) => {
         </h2>
         <a className={style.linkAuthor} href="#author">{author}</a>
       </div> */}
-      <button className={style.delete}>
+      <Button>
         <svg
           width='24'
           height='24'
@@ -42,7 +46,7 @@ export const Post = ({postData}) => {
             fill='currentColor'
           />
         </svg>
-      </button>
+      </Button>
       <PostRating ups={ups}/>
       {/* <div className={style.rating}>
         <button className={style.up}
@@ -50,7 +54,9 @@ export const Post = ({postData}) => {
         <p className={style.ups}>{ups}</p>
         <button className={style.down} aria-label="Понизить рейтинг" />
       </div> */}
-      <time className={style.date} dateTime={date}>{formatDate(date)}</time>
+      {/* <time className={style.date}
+      dateTime={date}>{formatDate(date)}</time> */}
+      <PostTime date={date} />
     </li>
   );
 };
