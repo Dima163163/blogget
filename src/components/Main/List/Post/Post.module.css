@@ -199,7 +199,7 @@
   .linkAuthor:hover {
     color: #2d2d2d;
   }
-}
+} */
 
 @media (min-width: 768px) {
   .post {
@@ -212,8 +212,8 @@
       'img rating data';
     min-height: 195px;
   }
-
+/* 
   .linkPost {
     font-size: 32px;
-  }
-} */
+  } */
+}

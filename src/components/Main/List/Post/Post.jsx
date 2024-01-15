@@ -16,6 +16,7 @@ export const Post = ({postData}) => {
       {/* <img className={style.img} src={notphoto} alt={title} /> */}
       <PostImage title={title} />
       <PostContent title={title} author={author}/>
+      <PostRating ups={ups}/>
       {/* <div className={style.content}>
         <h2 className={style.title}>
           <a className={style.linkPost} href="#">
@@ -47,7 +48,6 @@ export const Post = ({postData}) => {
           />
         </svg>
       </Button>
-      <PostRating ups={ups}/>
       {/* <div className={style.rating}>
         <button className={style.up}
           aria-label="Увеличить рейтинг" />
