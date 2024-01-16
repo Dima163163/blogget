@@ -21,4 +21,5 @@ export const Header = () => (
 
 Header.propTypes = {
   auth: PropTypes.boolean,
+  text: PropTypes.string,
 };
