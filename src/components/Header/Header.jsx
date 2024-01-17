@@ -6,20 +6,21 @@ import Search from './Search';
 import Auth from './Auth';
 import style from './Header.module.css';
 
-export const Header = () => (
+
+export const Header = ({token, delToken}) => (
   <header className={style.header}>
     <Layout>
       <div className={style.gridContainer}>
         <Logo/>
         <Heading text="Главная" />
         <Search/>
-        <Auth auth={false}/>
+        <Auth token={token} delToken={delToken} />
       </div>
     </Layout>
   </header>
 );
 
 Header.propTypes = {
-  auth: PropTypes.boolean,
-  text: PropTypes.string,
+  token: PropTypes.string,
+  delToken: PropTypes.func,
 };
