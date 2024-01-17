@@ -5,7 +5,6 @@ import {urlAuth} from '../../../api/auth';
 import {Text} from '../../../UI/Text';
 import {useState} from 'react';
 import {useAuth} from '../../../hooks/useAuth';
-// import {URL_API} from '../../../api/const';
 
 export const Auth = ({token, delToken}) => {
   const [auth, setAuth] = useAuth({}, token, delToken);
