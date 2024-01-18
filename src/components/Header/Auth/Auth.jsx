@@ -11,7 +11,7 @@ export const Auth = ({token, delToken}) => {
   const [buttonClose, setButtonClose] = useState(false);
 
   const addCloseButtonHandler = () => {
-    setButtonClose(true);
+    setButtonClose(!buttonClose);
   };
 
   return (
