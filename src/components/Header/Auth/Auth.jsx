@@ -18,7 +18,7 @@ export const Auth = ({token, delToken}) => {
     <div className={style.container}>
       {auth.name ? (
         <>
-          <button className={style.btn} onClick={() => addCloseButtonHandler()}>
+          <button className={style.btn} onClick={addCloseButtonHandler}>
             <img className={style.img}
               src={auth.img} title={auth.name} alt={`Аватар ${auth.name}`}/>
             <Text className={style.btnText}>{auth.name}</Text>
