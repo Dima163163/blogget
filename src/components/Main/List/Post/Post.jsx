@@ -8,7 +8,6 @@ import {PostTime} from './PostTime/PostTime';
 import {ReactComponent as DeleteIcon} from './img/delete.svg';
 
 export const Post = ({postData}) => {
-  console.log(postData);
   const {title, author, ups, created, thumbnail} = postData;
 
   return (
