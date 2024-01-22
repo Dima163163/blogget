@@ -10,9 +10,9 @@ export const PostImage = ({title, urlImg}) => {
 
   const checkImgSrc = src => {
     const img = new Image();
+    img.src = src;
     img.onload = () => setFlag(true);
     img.onerror = () => setFlag(false);
-    img.src = src;
   };
 
   checkImgSrc(url);
