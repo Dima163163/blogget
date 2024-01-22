@@ -3,10 +3,14 @@ import notphoto from '../img/notphoto.jpg';
 import PropTypes from 'prop-types';
 
 
-export const PostImage = ({title}) => <img
-  className={style.img} src={notphoto} alt={title}
-/>;
+export const PostImage = ({title, urlImg}) => {
+  const url = urlImg.replace(/\?.*$/, '');
+  return (<img
+    className={style.img} src={url ? url : notphoto} alt={title}
+  />);
+};
 
 PostImage.propTypes = {
   title: PropTypes.string,
+  urlImg: PropTypes.string,
 };

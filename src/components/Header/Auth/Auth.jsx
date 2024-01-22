@@ -3,31 +3,35 @@ import PropsTypes from 'prop-types';
 import {ReactComponent as LoginIcon} from './img/login.svg';
 import {urlAuth} from '../../../api/auth';
 import {Text} from '../../../UI/Text';
-import {useState} from 'react';
-import {useAuth} from '../../../hooks/useAuth';
+import {useContext, useState} from 'react';
+import {tokenContext} from '../../../context/tokenContext';
+import {authContext} from '../../../context/authContext';
 
-export const Auth = ({token, delToken}) => {
-  const [auth, setAuth] = useAuth({}, token, delToken);
-  const [buttonClose, setButtonClose] = useState(false);
+export const Auth = () => {
+  const {delToken} = useContext(tokenContext);
+  const [showLogout, setShowLogout] = useState(false);
+  const {auth, clearAuth} = useContext(authContext);
 
-  const addCloseButtonHandler = () => {
-    setButtonClose(!buttonClose);
+  const getOut = () => {
+    setShowLogout(!showLogout);
+  };
+
+  const logOut = () => {
+    delToken();
+    clearAuth({});
   };
 
   return (
     <div className={style.container}>
       {auth.name ? (
         <>
-          <button className={style.btn} onClick={addCloseButtonHandler}>
+          <button className={style.btn} onClick={getOut}>
             <img className={style.img}
               src={auth.img} title={auth.name} alt={`Аватар ${auth.name}`}/>
             <Text className={style.btnText}>{auth.name}</Text>
           </button>
-          {buttonClose && (
-            <button className={style.logout} onClick={() => {
-              delToken();
-              setAuth({});
-            }}>
+          {showLogout && (
+            <button className={style.logout} onClick={logOut}>
               Выйти
             </button>
           )}
