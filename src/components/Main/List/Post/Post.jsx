@@ -8,17 +8,25 @@ import {PostTime} from './PostTime/PostTime';
 import {ReactComponent as DeleteIcon} from './img/delete.svg';
 
 export const Post = ({postData}) => {
-  const {title, author, ups, created, thumbnail} = postData;
+  const {
+    title,
+    author,
+    ups,
+    created: data,
+    thumbnail,
+    id,
+    subreddit,
+  } = postData;
 
   return (
     <li className={style.post}>
       <PostImage title={title} urlImg={thumbnail}/>
-      <PostContent title={title} author={author}/>
+      <PostContent title={title} author={author} id={id} subreddit={subreddit}/>
       <PostRating ups={ups}/>
       <Button>
         <DeleteIcon />
       </Button>
-      <PostTime date={created} />
+      <PostTime date={data} />
     </li>
   );
 };
