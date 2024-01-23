@@ -10,8 +10,7 @@ export const useCommentsData = (id, subreddit) => {
     fetch(`${URL_API}/r/${subreddit}/comments/${id}.json`)
       .then(response => response.json())
       .then(data => {
-        setComments((data[1].data.children).slice(0,
-          data[1].data.children.length - 1));
+        setComments((data[1].data.children));
         setPost(data[0].data.children[0].data);
         setLoading(false);
       })

@@ -9,10 +9,10 @@ export const Comments = ({comments}) => {
   return (
     <ul className={style.list}>
       {comments.map(comment =>
-        (<li key={comment.data.id} className={style.item}>
-          <h3 className={style.author}>{comment.data.author}</h3>
-          <p className={style.comment}>{comment.data.body}</p>
-          <PostTime date={comment.data.created}/>
+        (<li key={comment?.data.id} className={style.item}>
+          <h3 className={style.author}>{comment?.data?.author}</h3>
+          <p className={style.comment}>{comment?.data?.body}</p>
+          {comment.data.created && <PostTime date={comment.data.created}/>}
         </li>))}
     </ul>
   );
