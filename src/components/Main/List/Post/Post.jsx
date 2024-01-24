@@ -21,7 +21,8 @@ export const Post = ({postData}) => {
   return (
     <li className={style.post}>
       <PostImage title={title} urlImg={thumbnail}/>
-      <PostContent title={title} author={author} id={id} subreddit={subreddit}/>
+      <PostContent title={title} author={author} id={id}
+        subreddit={subreddit}/>
       <PostRating ups={ups}/>
       <Button>
         <DeleteIcon />

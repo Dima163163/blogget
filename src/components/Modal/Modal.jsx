@@ -38,7 +38,6 @@ export const Modal = ({id, closeModal, subreddit}) => {
     <div className={style.overlay} ref={overlayRef}>
       <div className={style.modal}>
         <h2 className={style.title}>{post.title}</h2>
-
         <div className={style.content}>
           <Markdown options={{
             overrides: {
@@ -49,7 +48,7 @@ export const Modal = ({id, closeModal, subreddit}) => {
               }
             }
           }}>
-            {post.markdown ? post.markdown : ''}
+            {post.selftext ? post.selftext : ''}
           </Markdown>
         </div>
         {loading && <Text As="p">Загрузка...</Text>}
