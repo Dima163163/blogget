@@ -1,20 +1,20 @@
-import './index.css';
 import Header from './components/Header';
 import Main from './components/Main';
-import {TokenContextProvider} from './context/tokenContext';
+import {Provider} from 'react-redux';
 import {AuthContextProvider} from './context/authContext';
 import {PostContextProvider} from './context/postsContext';
+import {store} from './store';
 
 function App() {
   return (
-    <TokenContextProvider value={{}}>
+    <Provider store={store}>
       <AuthContextProvider value={{}}>
-        <Header />
         <PostContextProvider value={[]}>
+          <Header />
           <Main />
         </PostContextProvider>
       </AuthContextProvider>
-    </TokenContextProvider>
+    </Provider>
   );
 }
 

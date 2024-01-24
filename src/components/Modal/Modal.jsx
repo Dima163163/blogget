@@ -54,11 +54,10 @@ export const Modal = ({id, closeModal, subreddit}) => {
         </div>
         {loading && <Text As="p">Загрузка...</Text>}
         <p className={style.author}>{post.author}</p>
+        <Comments comments={comments}/>
         {!isVisibleForm && <button className={style.btn}
           onClick={() => setIsVisibleForm(true)}>Написать комментарий</button>}
         {isVisibleForm && <FormComment/>}
-        <Comments comments={comments}/>
-
         <button className={style.close} ref={buttonCloseRef}>
           <CloseIcon />
         </button>
