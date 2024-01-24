@@ -67,9 +67,7 @@ export const Modal = ({id, closeModal, subreddit}) => {
 };
 
 Modal.propTypes = {
-  author: PropTypes.string,
-  title: PropTypes.string,
-  markdown: PropTypes.string,
+  id: PropTypes.string,
   closeModal: PropTypes.func,
   subreddit: PropTypes.string,
 };

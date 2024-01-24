@@ -2,7 +2,7 @@ import {createStore} from 'redux';
 import {getToken, setToken} from '../api/token';
 
 const initionalState = {
-  comment: 'Привет Redux',
+  comment: '',
   token: getToken(),
 };
 
