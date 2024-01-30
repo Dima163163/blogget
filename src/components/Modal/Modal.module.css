@@ -60,6 +60,14 @@
   height: 15px;
 }
 
+.preloaderContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @media (min-width: 768px) {
   .modal {
     padding: 30px;

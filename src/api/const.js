@@ -4,5 +4,5 @@ export const CLIENT_ID = 'Ybo8-M1vK8CbIyR_reRHOw';
 export const RESPONSE_TYPE = 'token';
 export const RANDOM_STRING = 'random_string';
 export const REDIRECT_URI = 'http://localhost:3000/auth';
-export const SCOPE = 'identity submit  read';
+export const SCOPE = 'identity submit read';
 

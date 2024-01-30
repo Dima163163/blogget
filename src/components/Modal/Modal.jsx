@@ -5,16 +5,18 @@ import Markdown from 'markdown-to-jsx';
 import ReactDOM from 'react-dom';
 import {useEffect, useRef, useState} from 'react';
 import {useCommentsData} from '../../hooks/useCommentsData';
-import {Text} from '../../UI/Text';
 import FormComment from './FormComment';
 import Comments from './Comments';
+import {Text} from '../../UI/Text';
+import Preloader from '../../UI/Preloader';
 
 
 export const Modal = ({id, closeModal, subreddit}) => {
   const [isVisibleForm, setIsVisibleForm] = useState(false);
   const overlayRef = useRef(null);
   const buttonCloseRef = useRef(null);
-  const [comments, post, loading] = useCommentsData(id, subreddit);
+  const [postData, commentsData, status] = useCommentsData(id);
+
 
   const handleClick = e => {
     const target = e.target;
@@ -37,25 +39,42 @@ export const Modal = ({id, closeModal, subreddit}) => {
   return ReactDOM.createPortal(
     <div className={style.overlay} ref={overlayRef}>
       <div className={style.modal}>
-        <h2 className={style.title}>{post.title}</h2>
-        <div className={style.content}>
-          <Markdown options={{
-            overrides: {
-              a: {
-                props: {
-                  target: '_blank',
+        {status === 'loading' && (
+          <div className={style.preloaderContainer}>
+            <Preloader css={{
+              'display': 'block',
+            }}
+            size={90}/>
+          </div>
+        )}
+        {status === 'error' && (<Text As='h2' className={style.title}
+          size={22} tsize={24}>
+        Ошибка при загрузке
+        </Text>)}
+        {status === 'loaded' && (<>
+          <Text As='h2' className={style.title} size={22} tsize={24}>
+            {postData.title}
+          </Text>
+          <div className={style.content}>
+            <Markdown options={{
+              overrides: {
+                a: {
+                  props: {
+                    target: '_blank',
+                  }
                 }
               }
-            }
-          }}>
-            {post.selftext ? post.selftext : ''}
-          </Markdown>
-        </div>
-        {loading && <Text As="p">Загрузка...</Text>}
-        <p className={style.author}>{post.author}</p>
-        <Comments comments={comments}/>
-        {!isVisibleForm && <button className={style.btn}
-          onClick={() => setIsVisibleForm(true)}>Написать комментарий</button>}
+            }}>
+              {postData.selftext ? postData.selftext : ''}
+            </Markdown>
+          </div>
+          <p className={style.author}>{postData.author}</p>
+          <Comments comments={commentsData}/>
+        </>)}
+        {(!isVisibleForm && status === 'loaded') &&
+        <button className={style.btn}
+          onClick={() =>
+            setIsVisibleForm(true)}>Написать комментарий</button>}
         {isVisibleForm && <FormComment/>}
         <button className={style.close} ref={buttonCloseRef}>
           <CloseIcon />

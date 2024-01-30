@@ -1,23 +1,16 @@
-import {useState, useEffect} from 'react';
-import {URL_API} from '../api/const';
+import {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {commentsRequestAsync} from '../store/commentsData/commentsDataAction';
 
-export const useCommentsData = (id, subreddit) => {
-  const [post, setPost] = useState([]);
-  const [comments, setComments] = useState([]);
-  const [loading, setLoading] = useState(true);
+export const useCommentsData = (id) => {
+  const postData = useSelector(state => state.commentsData.data[0]);
+  const commentsData = useSelector(state => state.commentsData.data[1]);
+  const status = useSelector(state => state.commentsData.status);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    fetch(`${URL_API}/r/${subreddit}/comments/${id}.json`)
-      .then(response => response.json())
-      .then(data => {
-        setComments((data[1].data.children));
-        setPost(data[0].data.children[0].data);
-        setLoading(false);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }, []);
+    dispatch(commentsRequestAsync(id));
+  }, [id]);
 
-  return [comments, post, loading];
+  return [postData, commentsData, status];
 };
