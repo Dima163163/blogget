@@ -21,7 +21,6 @@ export const commentsRequestError = (error) => ({
 });
 
 export const commentsRequestAsync = (id) => (dispatch, getState) => {
-  console.log('commentsID', id);
   const token = getState().token.token;
   if (!token) return;
 

@@ -5,7 +5,7 @@ import {urlAuth} from '../../../api/auth';
 import {Text} from '../../../UI/Text';
 import {useState} from 'react';
 import {useDispatch} from 'react-redux';
-import {deleteToken} from '../../../store/tokenReducer';
+import {deleteToken} from '../../../store/token/tokenAction';
 import {useAuth} from '../../../hooks/useAuth';
 import {Preloader} from '../../../UI/Preloader/Preloader';
 import {Notice} from './Notice/Notice';
@@ -14,7 +14,6 @@ export const Auth = () => {
   const dispatch = useDispatch();
   const [showLogout, setShowLogout] = useState(false);
   const [auth, loading, clearAuth, error] = useAuth();
-  console.log('error: ', error);
 
   const getOut = () => {
     setShowLogout(!showLogout);
