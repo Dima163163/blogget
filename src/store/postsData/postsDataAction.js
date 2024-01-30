@@ -21,7 +21,6 @@ export const postsRequestError = (error) => ({
 
 export const postsRequestAsync = () => (dispatch, getState) => {
   const token = getState().token.token;
-  console.log('token: ', token);
 
   if (!token) return;
 

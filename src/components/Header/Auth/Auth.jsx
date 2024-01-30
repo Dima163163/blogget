@@ -8,11 +8,13 @@ import {useDispatch} from 'react-redux';
 import {deleteToken} from '../../../store/tokenReducer';
 import {useAuth} from '../../../hooks/useAuth';
 import {Preloader} from '../../../UI/Preloader/Preloader';
+import {Notice} from './Notice/Notice';
 
 export const Auth = () => {
   const dispatch = useDispatch();
   const [showLogout, setShowLogout] = useState(false);
-  const [auth, loading, clearAuth] = useAuth();
+  const [auth, loading, clearAuth, error] = useAuth();
+  console.log('error: ', error);
 
   const getOut = () => {
     setShowLogout(!showLogout);
@@ -43,9 +45,12 @@ export const Auth = () => {
           </>
         ) :
           (
-            <Text className={style.authLink} As='a' href={urlAuth}>
-              <LoginIcon className={style.svg}/>
-            </Text>
+            <>
+              <Text className={style.authLink} As='a' href={urlAuth}>
+                <LoginIcon className={style.svg}/>
+              </Text>
+              {error && <Notice/>}
+            </>
           )}
       </div>
     </>

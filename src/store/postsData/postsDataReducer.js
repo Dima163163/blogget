@@ -12,7 +12,6 @@ const initionalState = {
 };
 
 export const postsDataReducer = (state = initionalState, action) => {
-  console.log('action', action);
   switch (action.type) {
     case POSTS_REQUEST:
       return {
