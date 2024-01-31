@@ -13,6 +13,7 @@ export const List = () => {
   const dispatch = useDispatch();
   const {page} = useParams();
   console.log('page: ', page);
+  console.log('useParams()', useParams());
 
   useEffect(() => {
     dispatch(postsRequestAsync(page));

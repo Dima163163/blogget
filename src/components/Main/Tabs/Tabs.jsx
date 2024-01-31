@@ -13,10 +13,10 @@ import {debounceRaf} from '../../../utils/debounce';
 import {useNavigate} from 'react-router-dom';
 
 const LIST = [
-  {value: 'Главная', Icon: HomeIcon, link: 'rising'},
-  {value: 'Топ', Icon: TopIcon, link: 'top'},
-  {value: 'Лучшие', Icon: BestIcon, link: 'best'},
-  {value: 'Горячие', Icon: HotIcon, link: 'hot'},
+  {value: 'Главная', Icon: HomeIcon, link: ''},
+  {value: 'Топ', Icon: TopIcon, link: '/category/top'},
+  {value: 'Лучшие', Icon: BestIcon, link: '/category/best'},
+  {value: 'Горячие', Icon: HotIcon, link: '/category/hot'},
 ].map(assignId);
 
 export const Tabs = () => {
@@ -62,7 +62,7 @@ export const Tabs = () => {
             <button className={style.btn}
               onClick={() => {
                 setItemMenu(value);
-                navigate(`/category/${link}`);
+                navigate(link);
               }}>
               <Text>{value}</Text>
               {Icon && <Icon width={30} height={30} />}
