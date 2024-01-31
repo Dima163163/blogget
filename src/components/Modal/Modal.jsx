@@ -9,9 +9,12 @@ import FormComment from './FormComment';
 import Comments from './Comments';
 import {Text} from '../../UI/Text';
 import Preloader from '../../UI/Preloader';
+import {useNavigate, useParams} from 'react-router-dom';
 
 
-export const Modal = ({id, closeModal, subreddit}) => {
+export const Modal = () => {
+  const {id, page} = useParams();
+  const navigate = useNavigate();
   const [isVisibleForm, setIsVisibleForm] = useState(false);
   const overlayRef = useRef(null);
   const buttonCloseRef = useRef(null);
@@ -21,9 +24,8 @@ export const Modal = ({id, closeModal, subreddit}) => {
   const handleClick = e => {
     const target = e.target;
 
-    if (target === overlayRef.current || e.key === 'Escape' ||
-    target.closest('button') === buttonCloseRef.current) {
-      closeModal();
+    if (target === overlayRef.current || e.key === 'Escape') {
+      navigate(`/category/${page}`);
     }
   };
 
@@ -69,14 +71,15 @@ export const Modal = ({id, closeModal, subreddit}) => {
             </Markdown>
           </div>
           <p className={style.author}>{postData.author}</p>
+          {(!isVisibleForm && status === 'loaded') &&
+          <button className={style.btn}
+            onClick={() =>
+              setIsVisibleForm(true)}>Написать комментарий</button>}
+          {isVisibleForm && <FormComment/>}
           <Comments comments={commentsData}/>
         </>)}
-        {(!isVisibleForm && status === 'loaded') &&
-        <button className={style.btn}
-          onClick={() =>
-            setIsVisibleForm(true)}>Написать комментарий</button>}
-        {isVisibleForm && <FormComment/>}
-        <button className={style.close} ref={buttonCloseRef}>
+        <button className={style.close} ref={buttonCloseRef}
+          onClick={() => navigate(`/category/${page}`)}>
           <CloseIcon />
         </button>
       </div>

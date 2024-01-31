@@ -5,13 +5,13 @@ import {
 } from './commentsDataAction';
 
 
-const initionalState = {
+const initialState = {
   status: '',
   data: [],
   error: ''
 };
 
-export const commentsDataReducer = (state = initionalState, action) => {
+export const commentsDataReducer = (state = initialState, action) => {
   switch (action.type) {
     case COMMENTS_RQUEST:
       return {

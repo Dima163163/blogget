@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {useBestPosts} from '../hooks/useBestPosts';
+import {useBestPosts} from '../hooks/usePostsData';
 
 export const postContext = React.createContext([]);
 

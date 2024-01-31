@@ -10,18 +10,20 @@ import {ReactComponent as TopIcon} from './img/top.svg';
 import {ReactComponent as BestIcon} from './img/best.svg';
 import {ReactComponent as HotIcon} from './img/hot.svg';
 import {debounceRaf} from '../../../utils/debounce';
+import {useNavigate} from 'react-router-dom';
 
 const LIST = [
-  {value: 'Главная', Icon: HomeIcon},
-  {value: 'Топ', Icon: TopIcon},
-  {value: 'Лучшие', Icon: BestIcon},
-  {value: 'Горячие', Icon: HotIcon},
+  {value: 'Главная', Icon: HomeIcon, link: 'rising'},
+  {value: 'Топ', Icon: TopIcon, link: 'top'},
+  {value: 'Лучшие', Icon: BestIcon, link: 'best'},
+  {value: 'Горячие', Icon: HotIcon, link: 'hot'},
 ].map(assignId);
 
 export const Tabs = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isDropdown, setIsDropdown] = useState(true);
-  const [textBtn, setTextBtn] = useState('Add item');
+  const [itemMenu, setItemMenu] = useState('Главная');
+  const navigate = useNavigate();
 
   const handleResize = () => {
     if (document.documentElement.clientWidth < 768) {
@@ -48,17 +50,20 @@ export const Tabs = () => {
           <button className={style.btn} onClick={() =>
             setIsDropdownOpen(!isDropdownOpen)}
           >
-            {textBtn}
+            {itemMenu}
             <ArrowIcon width={15} height={15}/>
           </button>
         </div>
       )}
       {(isDropdownOpen || !isDropdown) && <ul className={style.list}
         onClick={() => setIsDropdownOpen(false)}>
-        {LIST.map(({value, id, Icon}) => (
+        {LIST.map(({value, link, id, Icon}) => (
           <li className={style.item} key={id}>
             <button className={style.btn}
-              onClick={() => setTextBtn(value)}>
+              onClick={() => {
+                setItemMenu(value);
+                navigate(`/category/${link}`);
+              }}>
               <Text>{value}</Text>
               {Icon && <Icon width={30} height={30} />}
             </button>

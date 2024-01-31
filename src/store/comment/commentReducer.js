@@ -1,10 +1,10 @@
 import {UPDATE_COMMENT} from './commentAction';
 
-const initionalState = {
+const initialState = {
   comment: 'Hello Redux',
 };
 
-export const commentReducer = (state = initionalState, action) => {
+export const commentReducer = (state = initialState, action) => {
   switch (action.type) {
     case UPDATE_COMMENT:
       return {

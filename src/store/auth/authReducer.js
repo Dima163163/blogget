@@ -6,13 +6,13 @@ import {
 } from './authAction';
 
 
-const initionalState = {
+const initialState = {
   loading: false,
   data: {},
   error: '',
 };
 
-export const authReducer = (state = initionalState, action) => {
+export const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case AUTH_REQUEST:
       return {
