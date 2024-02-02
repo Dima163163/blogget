@@ -2,15 +2,15 @@ import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {postsRequestAsync} from '../store/postsData/postsDataAction';
 
-export const usePostsData = () => {
+export const usePostsData = (page) => {
   const token = useSelector(state => state.token.token);
-  const postsData = useSelector(state => state.postsData.data);
-  const loading = useSelector(state => state.postsData.loading);
   const dispatch = useDispatch();
+  const {posts, loading, isLast} = useSelector(state => state.posts);
 
   useEffect(() => {
-    dispatch(postsRequestAsync());
-  }, [token]);
+    if (!page || !token) return;
+    dispatch(postsRequestAsync(page));
+  }, [page]);
 
-  return [postsData, loading];
+  return [posts, loading, isLast];
 };

@@ -25,6 +25,7 @@ export const Tabs = () => {
   const [itemMenu, setItemMenu] = useState('Главная');
   const navigate = useNavigate();
 
+
   const handleResize = () => {
     if (document.documentElement.clientWidth < 768) {
       setIsDropdown(true);

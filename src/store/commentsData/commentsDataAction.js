@@ -1,60 +1,42 @@
 import axios from 'axios';
 import {URL_API} from '../../api/const';
+import {createAsyncThunk} from '@reduxjs/toolkit';
 
-export const COMMENTS_RQUEST = 'COMMENTS_RQUEST';
-export const COMMENTS_RQUEST_SUCCESS = 'COMMENTS_RQUEST_SUCCESS';
-export const COMMENTS_RQUEST_ERROR = 'COMMENTS_RQUEST_ERROR';
+export const commentsRequestAsync = createAsyncThunk(
+  'comments/fetch', (id, {getState}) => {
+    const token = getState().token.token;
 
-export const commentsRequest = () => ({
-  type: COMMENTS_RQUEST,
-  error: ''
-});
+    if (!token) return;
 
-export const commentsRequestSuccess = (data) => ({
-  type: COMMENTS_RQUEST_SUCCESS,
-  data,
-});
-
-export const commentsRequestError = (error) => ({
-  type: COMMENTS_RQUEST_ERROR,
-  error,
-});
-
-export const commentsRequestAsync = (id) => (dispatch, getState) => {
-  const token = getState().token.token;
-  if (!token) return;
-
-  dispatch(commentsRequest());
-  axios(`${URL_API}/comments/${id}`, {
-    headers: {
-      Authorization: `bearer ${token}`
-    },
-  })
-    .then(({data:
-      [
-        {
-          data: {
-            children: [
-              {
-                data
-              }
-            ]
+    return axios(`${URL_API}/comments/${id}`, {
+      headers: {
+        Authorization: `bearer ${token}`
+      },
+    })
+      .then(({data:
+        [
+          {
+            data: {
+              children: [
+                {
+                  data: post
+                }
+              ]
+            }
+          },
+          {
+            data: {
+              children
+            }
           }
-        },
-        {
-          data: {
-            children
-          }
-        }
-      ]
-    }) => {
-      const comments = children.map(item => item.data);
-      const dataArr = [data, comments];
-      dispatch(commentsRequestSuccess(dataArr));
-    },
-    )
-    .catch(error => {
-      console.error(error);
-      dispatch(commentsRequestError(error.message));
-    });
-};
+        ]
+      }) => {
+        const comments = children.map(item => item.data);
+
+        return {post, comments};
+      },
+      )
+      .catch((error) => ({error: error.toString()}));
+  }
+);
+

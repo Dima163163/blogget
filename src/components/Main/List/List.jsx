@@ -2,27 +2,27 @@ import style from './List.module.css';
 import Post from './Post';
 import Preloader from '../../../UI/Preloader';
 import {useEffect, useRef} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {postsRequestAsync} from '../../../store/postsData/postsDataAction';
 import {Outlet, useParams} from 'react-router-dom';
+import {usePostsData} from '../../../hooks/usePostsData';
 
 export const List = () => {
-  const postsData = useSelector(state => state.postsData.posts);
-  const loading = useSelector(state => state.postsData.loading);
-  const endList = useRef(null);
-  const dispatch = useDispatch();
   const {page} = useParams();
-  console.log('page: ', page);
-  console.log('useParams()', useParams());
+  console.log('pageL: ', page);
+  const [posts, loading, isLast] = usePostsData(page);
+  console.log('posts: ', posts);
+  const endList = useRef(null);
+  console.log('endList!!!!!!!!!!!: ', endList.current);
+  const dispatch = useDispatch();
+  console.log('dispatch: ', dispatch);
 
   useEffect(() => {
-    dispatch(postsRequestAsync(page));
-  }, [page]);
+    if (!endList.current || isLast) return;
 
-  useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
-        dispatch(postsRequestAsync());
+        dispatch(postsRequestAsync(page));
       }
     }, {
       rootMargin: '100px',
@@ -45,14 +45,18 @@ export const List = () => {
           size={90}/>
         </div>
       )}
-      <ul className={style.list}>
-        {!loading && postsData.map((post) =>
-          (
-            <Post key={post.data.id} postData={post.data} />
-          ))}
-        <li ref={endList} className={style.end}/>
-      </ul>
-      <Outlet/>
+      {!loading && (
+        <>
+          <ul className={style.list}>
+            {posts.length !== 0 && posts.map((post) =>
+              (
+                <Post key={post.data.id} postData={post.data} />
+              ))}
+            <li ref={endList} className={style.end}/>
+          </ul>
+          <Outlet/>
+        </>
+      )}
     </>
   );
 };
