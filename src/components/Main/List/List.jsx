@@ -9,13 +9,10 @@ import {usePostsData} from '../../../hooks/usePostsData';
 
 export const List = () => {
   const {page} = useParams();
-  console.log('pageL: ', page);
   const [posts, loading, isLast] = usePostsData(page);
   console.log('posts: ', posts);
   const endList = useRef(null);
-  console.log('endList!!!!!!!!!!!: ', endList.current);
   const dispatch = useDispatch();
-  console.log('dispatch: ', dispatch);
 
   useEffect(() => {
     if (!endList.current || isLast) return;

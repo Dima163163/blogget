@@ -69,9 +69,7 @@ export const Tabs = () => {
               onClick={() => {
                 setItemMenu(value);
                 navigate(`/category/${link}`);
-                const linkPage = link.slice(10);
-                console.log('linkPage: ', linkPage);
-                if (page !== link) dispatch(changePage(linkPage));
+                if (page !== link) dispatch(changePage(link));
                 if (page !== link && !loading) dispatch(resetPostsPage());
               }}>
               <Text>{value}</Text>

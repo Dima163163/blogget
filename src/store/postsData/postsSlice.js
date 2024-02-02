@@ -25,7 +25,7 @@ export const postsSlice = createSlice({
       state.error = '';
       state.after = '';
       state.isLast = false;
-    }
+    },
   },
   extraReducers: builder => {
     builder
