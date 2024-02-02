@@ -14,11 +14,18 @@ export const postsSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
-    changePage: (state, action) => {
+    changePage(state, action) {
       state.page = action.payload;
       state.after = '';
       state.isLast = false;
     },
+    resetPostsPage(state) {
+      state.posts = [];
+      state.loading = false;
+      state.error = '';
+      state.after = '';
+      state.isLast = false;
+    }
   },
   extraReducers: builder => {
     builder
@@ -42,4 +49,4 @@ export const postsSlice = createSlice({
 
 console.log('postsSlice', postsSlice);
 export default postsSlice.reducer;
-export const {changePage, resetPosts, postsAfter} = postsSlice.reducer;
+export const {changePage, resetPostsPage} = postsSlice.actions;

@@ -11,12 +11,14 @@ import {ReactComponent as BestIcon} from './img/best.svg';
 import {ReactComponent as HotIcon} from './img/hot.svg';
 import {debounceRaf} from '../../../utils/debounce';
 import {useNavigate} from 'react-router-dom';
+import {changePage, resetPostsPage} from '../../../store/postsData/postsSlice';
+import {useDispatch, useSelector} from 'react-redux';
 
 const LIST = [
-  {value: 'Главная', Icon: HomeIcon, link: ''},
-  {value: 'Топ', Icon: TopIcon, link: '/category/top'},
-  {value: 'Лучшие', Icon: BestIcon, link: '/category/best'},
-  {value: 'Горячие', Icon: HotIcon, link: '/category/hot'},
+  {value: 'Главная', Icon: HomeIcon, link: '..'},
+  {value: 'Топ', Icon: TopIcon, link: 'top'},
+  {value: 'Лучшие', Icon: BestIcon, link: 'best'},
+  {value: 'Горячие', Icon: HotIcon, link: 'hot'},
 ].map(assignId);
 
 export const Tabs = () => {
@@ -24,6 +26,9 @@ export const Tabs = () => {
   const [isDropdown, setIsDropdown] = useState(true);
   const [itemMenu, setItemMenu] = useState('Главная');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const {page, loading} = useSelector(state => state.posts);
+  console.log('page: ', page);
 
 
   const handleResize = () => {
@@ -63,7 +68,11 @@ export const Tabs = () => {
             <button className={style.btn}
               onClick={() => {
                 setItemMenu(value);
-                navigate(link);
+                navigate(`/category/${link}`);
+                const linkPage = link.slice(10);
+                console.log('linkPage: ', linkPage);
+                if (page !== link) dispatch(changePage(linkPage));
+                if (page !== link && !loading) dispatch(resetPostsPage());
               }}>
               <Text>{value}</Text>
               {Icon && <Icon width={30} height={30} />}
