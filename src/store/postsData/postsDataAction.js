@@ -24,3 +24,4 @@ export const postsRequestAsync = createAsyncThunk(
       .catch((error) => ({error: error.toString()}));
   }
 );
+

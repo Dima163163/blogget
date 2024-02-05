@@ -2,7 +2,7 @@ import style from './List.module.css';
 import Post from './Post';
 import Preloader from '../../../UI/Preloader';
 import {useEffect, useRef} from 'react';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {postsRequestAsync} from '../../../store/postsData/postsDataAction';
 import {Outlet, useParams} from 'react-router-dom';
 import {usePostsData} from '../../../hooks/usePostsData';
@@ -10,7 +10,7 @@ import {usePostsData} from '../../../hooks/usePostsData';
 export const List = () => {
   const {page} = useParams();
   const [posts, loading, isLast] = usePostsData(page);
-  console.log('posts: ', posts);
+  const token = useSelector(state => state.token.token);
   const endList = useRef(null);
   const dispatch = useDispatch();
 
@@ -34,15 +34,15 @@ export const List = () => {
   }, [endList.current]);
   return (
     <>
-      {loading && (
+      {(loading && token) && (
         <div className={style.preloaderContainer}>
           <Preloader css={{
             'display': 'block',
           }}
           size={90}/>
-        </div>
-      )}
-      {!loading && (
+        </div>)
+      }
+      {(!loading && token) && (
         <>
           <ul className={style.list}>
             {posts.length !== 0 && posts.map((post) =>
@@ -54,6 +54,7 @@ export const List = () => {
           <Outlet/>
         </>
       )}
+      {!token && <p>Войдите в Аккаунт</p>}
     </>
   );
 };
