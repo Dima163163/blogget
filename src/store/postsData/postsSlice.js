@@ -33,10 +33,6 @@ export const postsSlice = createSlice({
       state.after = '';
       state.isLast = false;
     },
-    postsRequest(state) {
-      state.loading = true;
-      state.error = '';
-    },
   },
   extraReducers: builder => {
     builder
