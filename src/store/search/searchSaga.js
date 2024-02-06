@@ -5,7 +5,7 @@ import {
   searchRequestError,
   searchRequestSuccess
 } from './searchAction';
-import {insertPostData} from '../postsData/postsSlice';
+import {insertPostsData} from '../postsData/postsSlice';
 
 function* fetchSearch(search) {
   try {
@@ -17,7 +17,7 @@ function* fetchSearch(search) {
     });
     const response = yield apply(request, request.json);
     yield put(searchRequestSuccess(response.data));
-    yield put(insertPostData(response.data.children));
+    yield put(insertPostsData(response.data.children));
   } catch (error) {
     yield put(searchRequestError(error));
   }

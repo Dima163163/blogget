@@ -26,13 +26,17 @@ export const postsSlice = createSlice({
       state.after = '';
       state.isLast = false;
     },
-    insertPostData(state, action) {
+    insertPostsData(state, action) {
       state.posts = action.payload;
       state.loading = false;
       state.error = '';
       state.after = '';
       state.isLast = false;
-    }
+    },
+    postsRequest(state) {
+      state.loading = true;
+      state.error = '';
+    },
   },
   extraReducers: builder => {
     builder
@@ -54,6 +58,5 @@ export const postsSlice = createSlice({
   }
 });
 
-console.log('postsSlice', postsSlice);
 export default postsSlice.reducer;
-export const {changePage, resetPostsPage, insertPostData} = postsSlice.actions;
+export const {changePage, resetPostsPage, insertPostsData} = postsSlice.actions;
