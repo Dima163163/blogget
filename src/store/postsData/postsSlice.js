@@ -45,7 +45,7 @@ export const postsSlice = createSlice({
         state.error = '';
       })
       .addCase(postsRequestAsync.fulfilled, (state, action) => {
-        state.posts = [...state.posts, ...action.payload.posts];
+        state.posts.push(...action.payload.posts);
         state.loading = false;
         state.error = '';
         state.after = action.payload.after;
