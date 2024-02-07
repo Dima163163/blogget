@@ -34,8 +34,6 @@ export const postsSlice = createSlice({
       state.after = '';
       state.isLast = false;
     },
-<<<<<<< HEAD
-=======
     fetchPostPage(state, action) {
       state.posts = action.payload.posts;
       state.loading = 'loaded';
@@ -50,7 +48,6 @@ export const postsSlice = createSlice({
       state.after = action.payload.after;
       state.isLast = !action.payload.after;
     },
->>>>>>> blogget14
   },
   extraReducers: builder => {
     builder
