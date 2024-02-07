@@ -2,7 +2,7 @@ import {createSlice} from '@reduxjs/toolkit';
 import {postsRequestAsync} from './postsDataAction';
 
 const initialState = {
-  loading: false,
+  loading: '',
   posts: [],
   error: '',
   after: '',
@@ -15,48 +15,61 @@ export const postsSlice = createSlice({
   initialState,
   reducers: {
     changePage(state, action) {
+      state.posts = [];
       state.page = action.payload;
       state.after = '';
       state.isLast = false;
     },
     resetPostsPage(state) {
       state.posts = [];
-      state.loading = false;
+      state.loading = '';
       state.error = '';
       state.after = '';
       state.isLast = false;
     },
     insertPostsData(state, action) {
       state.posts = action.payload;
-      state.loading = false;
+      state.loading = 'loaded';
       state.error = '';
       state.after = '';
       state.isLast = false;
     },
-    postsRequest(state) {
-      state.loading = true;
+    fetchPostPage(state, action) {
+      state.posts = action.payload.posts;
+      state.loading = 'loaded';
       state.error = '';
+      state.after = action.payload.after;
+      state.isLast = !action.payload.after;
+    },
+    fetchPostPageAfter(state, action) {
+      state.posts = [...state.posts, ...action.payload.posts];
+      state.loading = 'loaded';
+      state.error = '';
+      state.after = action.payload.after;
+      state.isLast = !action.payload.after;
     },
   },
   extraReducers: builder => {
     builder
       .addCase(postsRequestAsync.pending, (state) => {
-        state.loading = true;
+        state.loading = 'loading';
         state.error = '';
       })
       .addCase(postsRequestAsync.fulfilled, (state, action) => {
-        state.posts = [...state.posts, ...action.payload.posts];
-        state.loading = false;
-        state.error = '';
-        state.after = action.payload.after;
-        state.isLast = !action.payload.after;
+        state.loading = 'loaded';
       })
       .addCase(postsRequestAsync.rejected, (state, action) => {
-        state.loading = false;
+        state.loading = 'error';
         state.error = action.error;
       });
   }
 });
 
 export default postsSlice.reducer;
-export const {changePage, resetPostsPage, insertPostsData} = postsSlice.actions;
+export const {
+  changePage,
+  resetPostsPage,
+  insertPostsData,
+  fetchPostPage,
+  fetchPostPageAfter,
+} = postsSlice.actions;

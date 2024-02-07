@@ -14,6 +14,7 @@ export const Main = () => (
       <Tabs />
       <Routes>
         <Route path='/' element={<Rising />}/>
+        <Route path='/auth' element={<Rising />}/>
         <Route path='*' element={<NotFound />}/>
         <Route path='/category/:page' element={<List />}>
           <Route path='post/:id' element={<Modal/>}/>

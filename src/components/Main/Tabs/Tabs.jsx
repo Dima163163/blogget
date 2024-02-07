@@ -70,7 +70,11 @@ export const Tabs = () => {
                 setItemMenu(value);
                 navigate(`/category/${link}`);
                 if (page !== link) dispatch(changePage(link));
-                if (page !== link && !loading) dispatch(resetPostsPage());
+                console.log('l', link);
+                console.log('p', page);
+                if (page !== link && !loading) {
+                  dispatch(resetPostsPage());
+                }
               }}>
               <Text>{value}</Text>
               {Icon && <Icon width={30} height={30} />}
