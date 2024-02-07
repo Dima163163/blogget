@@ -31,30 +31,27 @@ export const List = () => {
         observer.unobserve(endList.current);
       }
     };
-  }, [endList.current]);
+  }, [endList.current, isLast, loading]);
   return (
     <>
-      {(loading && token) && (
-        <div className={style.preloaderContainer}>
-          <Preloader css={{
-            'display': 'block',
-          }}
-          size={90}/>
-        </div>)
-      }
-      {(!loading && token) && (
-        <>
-          <ul className={style.list}>
-            {posts.length !== 0 && posts.map((post) =>
-              (
-                <Post key={post.data.id} postData={post.data} />
-              ))}
-            <li ref={endList} className={style.end}/>
-          </ul>
-          <Outlet/>
-        </>
-      )}
-      {!token && <p>Войдите в Аккаунт</p>}
+      <ul className={style.list}>
+        {posts.length !== 0 && posts.map((post) =>
+          (
+            <Post key={post.data.id} postData={post.data} />
+          )
+        )}
+        {loading === 'loading' && (
+          <div className={style.preloaderContainer}>
+            <Preloader css={{
+              'display': 'block',
+            }}
+            size={90}/>
+          </div>)
+        }
+        {loading === 'loaded' && <li ref={endList} className={style.end}/>}
+        {!token && <p>Войдите в Аккаунт</p>}
+      </ul>
+      <Outlet/>
     </>
   );
 };
